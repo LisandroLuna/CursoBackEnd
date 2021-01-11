@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Funcion constructora</title>
+</head>
+<body>
+<script>
+    function Usuario(nombre, apellido, libros, mascotas){
+        //Defino atributos
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.libros = libros;
+        this.mascotas = mascotas;
+
+        // Defino metodos
+        this.getFullname = function(){
+            return `${this.nombre} ${this.apellido}`;
+        }
+        this.addMascota = function(a){
+            function addToArray(orig, pet){
+                if(orig.push(pet)){
+                    this.mascotas = orig;
+                    return true;
+                }
+                return false;
+            }
+            if(addToArray(this.mascotas, a)){return `Mascota -${a}- ingresada.`}else{return `Ingrese una mascota valida!`};
+        }
+        this.getMascotas = function(){
+            return this.mascotas.length;
+        }
+        this.addBook = function(b){
+            function addToArray(orig, book){
+                if(orig.push(b)){
+                    this.libros = orig;
+                    return true;
+                }
+                return false;
+            }
+            if(addToArray(this.libros, b)){return `Libro -${b.nombre}- ingresado.`}else{return `Ingrese un libro valido!`};
+        }
+        this.getBooks = function(){
+            let books = []
+            this.libros.forEach(l => {
+                books.push(l.nombre);
+            })
+            return books;
+        }
+    }
+</script>
+</body>
+</html>
