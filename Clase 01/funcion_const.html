@@ -12,41 +12,27 @@
         this.apellido = apellido;
         this.libros = libros;
         this.mascotas = mascotas;
+    }
 
-        // Defino metodos
-        this.getFullname = function(){
-            return `${this.nombre} ${this.apellido}`;
-        }
-        this.addMascota = function(a){
-            function addToArray(orig, pet){
-                if(orig.push(pet)){
-                    this.mascotas = orig;
-                    return true;
-                }
-                return false;
-            }
-            if(addToArray(this.mascotas, a)){return `Mascota -${a}- ingresada.`}else{return `Ingrese una mascota valida!`};
-        }
-        this.getMascotas = function(){
-            return this.mascotas.length;
-        }
-        this.addBook = function(b){
-            function addToArray(orig, book){
-                if(orig.push(b)){
-                    this.libros = orig;
-                    return true;
-                }
-                return false;
-            }
-            if(addToArray(this.libros, b)){return `Libro -${b.nombre}- ingresado.`}else{return `Ingrese un libro valido!`};
-        }
-        this.getBooks = function(){
-            let books = []
-            this.libros.forEach(l => {
-                books.push(l.nombre);
-            })
-            return books;
-        }
+    // Defino metodos
+    Usuario.prototype.getFullname = function(){
+        return `${this.nombre} ${this.apellido}`;
+    }
+    Usuario.prototype.addMascota = function(a){
+        if(this.mascotas.push(a)){return `Mascota -${a}- ingresada.`}else{return `Ingrese una mascota valida!`};
+    }
+    Usuario.prototype.getMascotas = function(){
+        return this.mascotas.length;
+    }
+    Usuario.prototype.addBook = function(b){
+        if(this.libros.push(b)){return `Libro -${b.nombre}- ingresado.`}else{return `Ingrese un libro valido!`};
+    }
+    Usuario.prototype.getBooks = function(){
+        let books = []
+        this.libros.forEach(l => {
+            books.push(l.nombre);
+        })
+        return books;
     }
 </script>
 </body>

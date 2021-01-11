@@ -6,7 +6,36 @@
 </head>
 <body>
 <script>
+    class Usuario{
+        constructor(nombre, apellido, libros, mascotas) {
+            //Defino atributos
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.libros = libros;
+            this.mascotas = mascotas;
+        }
 
+        // Defino metodos
+        getFullname = function(){
+            return `${this.nombre} ${this.apellido}`;
+        }
+        addMascota = function(a){
+            if(this.mascotas.push(a)){return `Mascota -${a}- ingresada.`}else{return `Ingrese una mascota valida!`};
+        }
+        getMascotas = function(){
+            return this.mascotas.length;
+        }
+        addBook = function(b){
+            if(this.libros.push(b)){return `Libro -${b.nombre}- ingresado.`}else{return `Ingrese un libro valido!`};
+        }
+        getBooks = function(){
+            let books = []
+            this.libros.forEach(l => {
+                books.push(l.nombre);
+            })
+            return books;
+        }
+    }
 </script>
 </body>
 </html>
