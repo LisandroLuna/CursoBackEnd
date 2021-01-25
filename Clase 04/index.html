@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Observables</title>
+</head>
+<body>
+    <script type="module">
+        import { Observable } from 'https://dev.jspm.io/rxjs@6/_esm2015';
+        const miObservable = Observable.create((observer) => {
+            observer.next('Hola');
+            setTimeout(() => {
+                observer.next('Perri');
+                observer.complete();
+            }, 1500)
+        });
+
+        miObservable.subscribe(event => console.log(event));
+
+    </script>
+</body>
+</html>
