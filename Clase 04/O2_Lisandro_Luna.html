@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Observables</title>
+</head>
+<body>
+
+<input id="inputText"/>
+<span id="mirrorWord"></span>
+
+<script type="module">
+    import { fromEvent } from 'https://dev.jspm.io/rxjs@6/_esm2015';
+    import { map } from 'https://dev.jspm.io/rxjs@6/_esm2015/operators';
+
+    const input = document.getElementById('inputText');
+    const mirrorWord = document.getElementById('mirrorWord');
+    const observable = fromEvent(input, 'input');
+
+    let mirrorText = '';
+
+    const subscription = observable.pipe(
+        map(event => {
+            return event.data
+            }
+        )
+    ).subscribe(data => {
+            mirrorText += data;
+
+            if(mirrorText === 'error'){
+                subscription.error('Finalizado por error');
+            }
+            if(mirrorText === 'complete'){
+                subscription.complete();
+            }
+
+            mirrorWord.textContent = mirrorText.split('').reverse().join('');
+            setTimeout(() => {
+                subscription.unsubscribe();
+            }, 30000)
+        }, error => {
+            console.log(error)
+        },
+        () => {
+            clean();
+            console.log('Finalizo completo')
+        });
+
+    const clean = () => {
+        mirrorText = '';
+        input.value = '';
+        input.disable = true;
+        mirrorWord.textContent = '';
+    }
+
+</script>
+</body>
+</html>
