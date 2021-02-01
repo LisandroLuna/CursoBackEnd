@@ -9,32 +9,43 @@ class Archivo{
             const contenido = await fs.promises.readFile('./' + this.nombre + '.txt', 'utf-8')
             return JSON.parse(contenido)
         }catch(e){
-            return 'Error al leer el archivo: ' + e
+            return []
+            console.log(e)
         }
     }
     async guardar(newData){
         try{
-            newData.id = await archivo.leer().length + 1
+            let data = await archivo.leer();
+            newData.id = data.length + 1
         }catch (e){
             return(e)
         }
-        console.log(newData.id)
-        // let newSave = await archivo.leer()
-        // newSave = [...newSave, newData]
-        // const actualizacion = await fs.promises.writeFile('./' + this.nombre + '.txt', JSON.stringify(newSave), e => {
-        //     if(!e){
-        //         return this.leer()
-        //     }else{
-        //         return 'Error: ' + e
-        //     }
-        // })
+        let newSave = await archivo.leer()
+        newSave = [...newSave, newData]
+        const actualizacion = await fs.promises.writeFile('./' + this.nombre + '.txt', JSON.stringify(newSave), e => {
+            if(!e){
+                return this.leer()
+            }else{
+                return 'Error: ' + e
+            }
+        })
     }
-    borrar(){
-
+    async borrar(){
+        const borrado = await fs.unlink('./' + this.nombre + '.txt', e => {
+            if(!e){
+                return 'Archivo borrado'
+            }else{
+                return e;
+            }
+        })
     }
 }
 
 const archivo =  new Archivo('productos')
+
+let info = await archivo.leer()
+
+console.log(info)
 
 let data = {
     "title": "accumsan odio curabitur convallis duis consequat dui nec nisi volutpat eleifend",
@@ -45,4 +56,12 @@ let data = {
 
 archivo.guardar(data)
 
-//console.log(await archivo.leer())
+info = await archivo.leer()
+
+console.log(info)
+
+archivo.borrar()
+
+info = await archivo.leer()
+
+console.log(info)
