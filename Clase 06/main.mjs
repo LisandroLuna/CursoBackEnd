@@ -43,6 +43,8 @@ class Archivo{
 
 const archivo =  new Archivo('productos')
 
+// leo el archivo
+
 let info = await archivo.leer()
 
 console.log(info)
@@ -54,11 +56,15 @@ let data = {
     "id": 0
 }
 
+// guardod atos en el archivo
+
 archivo.guardar(data)
 
 info = await archivo.leer()
 
 console.log(info)
+
+// borro el archivo
 
 archivo.borrar()
 
