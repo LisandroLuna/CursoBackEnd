@@ -1,7 +1,10 @@
 import express from 'express'
 import handlebars from 'express-handlebars'
 import {router, viewRouter} from "./routes.mjs"
-
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express()
 
@@ -14,20 +17,19 @@ app.engine(
     handlebars({
         extname: '.hbs',
         defaultLayout: 'index.hbs',
-        layoutsDir: __dirname + '/views/layouts',
-        partialsDir: __dirname + '/views/partials'
+        layoutsDir: __dirname + '/public/views/layouts',
+        partialsDir: __dirname + '/public/views/partials'
     })
 )
 
 app.set('view engine', 'hbs')
-app.set('views', './views')
+app.set('views', './public/views')
 app.use(express.static('public'));
 
 const port = 8080
 
+app.use('/', viewRouter)
 app.use('/api', router)
-
-app.get('/', viewRouter)
 
 const server = app.listen(port, () => {
     console.log('Server listen at port: ' + port)
