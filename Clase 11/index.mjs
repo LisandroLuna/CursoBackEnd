@@ -1,6 +1,6 @@
 import express from 'express'
 import handlebars from 'express-handlebars'
-import router from "./routes/api.mjs"
+import {router} from "./routes/api.mjs"
 import viewRouter from "./routes/web.mjs"
 import path from 'path';
 import { fileURLToPath } from 'url';
