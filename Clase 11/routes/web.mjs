@@ -1,14 +1,14 @@
 import express from 'express'
-import prodList from "../data/files.mjs";
+import {prodList} from "./api.mjs"
 
 
 let viewRouter = express.Router()
 
 viewRouter.get('/productos/vista', (req, res) => {
-    res.render('productList', { list: prodList})
+    res.render('pages/view', { list: prodList})
 })
 viewRouter.get('/productos/cargar', (req, res) => {
-    res.render('productLoad', { list: prodList})
+    res.render('pages/load', { list: prodList})
 })
 
 export default viewRouter
