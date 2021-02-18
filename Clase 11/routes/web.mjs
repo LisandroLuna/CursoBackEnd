@@ -1,5 +1,5 @@
 import express from 'express'
-import prodList from "../data/files.mjs";
+import { prodList } from "./api.mjs";
 
 
 let viewRouter = express.Router()
