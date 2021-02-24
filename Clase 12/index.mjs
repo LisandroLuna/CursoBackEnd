@@ -2,10 +2,11 @@ import * as http from "http";
 import express from 'express'
 import {Server} from "socket.io";
 import handlebars from 'express-handlebars'
-import {prodList, router} from "./routes/api.mjs"
+import router from "./routes/api.mjs"
 import viewRouter from "./routes/web.mjs"
 import path from 'path';
 import { fileURLToPath } from 'url';
+import {prodList, addProd} from "./product.mjs";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -42,17 +43,11 @@ server.listen(port, () => {
     console.log('Server listen at port: ' + port)
 })
 io.on("connection", socket => {
-    let list = prodList
     console.log("Client connected...");
-    socket.emit('data', list)
+    socket.emit('data', prodList)
     socket.on('update', (newData) => {
-        let id = 0
-        prodList.forEach(prod => {
-            prod.id >= id ? id++ : ''
-        })
-        newData.id = id
-        list = [...list, newData]
-        io.emit('data', list)
+        addProd(newData)
+        socket.broadcast.emit('data', prodList)
     })
 });
 

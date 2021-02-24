@@ -1,5 +1,5 @@
 import express from 'express'
-import {prodList} from './api.mjs'
+import {prodList} from '../product.mjs'
 
 
 let viewRouter = express.Router()
